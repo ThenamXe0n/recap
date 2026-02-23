@@ -1,9 +1,9 @@
 # pending topics 
 
   ### javascript 
-  - 1. event loop
-  - 2. api fetching (handling)intigrating api
-  - 3. event delegation
+  - 1. event loop ✅
+  - 2. api fetching (handling)intigrating api ✅
+  - 3. event delegation 
   - 4. higher order
 
 
