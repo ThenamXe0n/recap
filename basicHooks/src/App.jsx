@@ -1,28 +1,44 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import "./App.css";
 import Container from "./component/Container";
 import QuotesTable from "./component/QuotesTable";
 import useFetchQuotes from "./hooks/useFetchQuotes";
 
 function App() {
-  const {quoteList} = useFetchQuotes()
- 
-
-
-  // useEffect(() => {
-  //   fetchQuoteDataAPI();
-  // }, [limit]);
-
-  // console.log("limit is ", limit);
-
+  const { filter, handleIncrementLimit, handleQuoteFilter } = useFetchQuotes();
+  const filterValueRef = useRef();
 
   return (
     <>
-     
-      {/* <button onClick={handleLoadMoreData}>load more</button> */}
+      <button onClick={handleIncrementLimit}>load more</button>
       <h1>Quotes List</h1>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "20px",
+        }}
+      >
+        <input
+          ref={filterValueRef}
+          style={{ padding: "10px", borderRadius: "10px", margin: "20px" }}
+          placeholder="search quote by quote or author name"
+        />
+        <button onClick={() => handleQuoteFilter(filterValueRef.current.value)}>
+          Search quote
+        </button>
+        <button
+          onClick={() => {
+            handleQuoteFilter("");
+            filterValueRef.current.value = "";
+          }}
+        >
+          reset filter
+        </button>
+      </div>
       <div>
-        {quoteList.map((quote, quoteIdx) => (
+        {filter.map((quote, quoteIdx) => (
           <QuoteDisplayTile
             key={quoteIdx}
             id={quote.id}
@@ -31,8 +47,7 @@ function App() {
           />
         ))}
       </div>
-      <QuotesTable/>
-
+      {/* <QuotesTable/> */}
     </>
   );
 }
@@ -63,4 +78,3 @@ function QuoteDisplayTile({
     </div>
   );
 }
-

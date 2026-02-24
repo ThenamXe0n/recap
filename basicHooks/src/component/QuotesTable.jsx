@@ -34,17 +34,20 @@ let data = [
 ];
 
 function QuotesTable() {
-  const { quoteList } = useFetchQuotes(data);
+  const { quoteList, handleIncrementLimit,handleQuoteFilter,filter } = useFetchQuotes(data, 10);
 
   return (
     <div>
+      <div>
+        <input onChange={(e)=>{handleQuoteFilter(e.target.value)}} style={{padding:"10px",margin:"5px"}} placeholder="search" />
+      </div>
       <table>
         <tr>
           <th>id</th>
           <th>quotes</th>
           <th>author</th>
         </tr>
-        {quoteList.map((quote) => (
+        {filter.map((quote) => (
           <tr key={quote.id}>
             <td>{quote.id}</td>
             <td>{quote.quote}</td>
@@ -52,6 +55,7 @@ function QuotesTable() {
           </tr>
         ))}
       </table>
+      <button onClick={handleIncrementLimit}>load more quotes...</button>
     </div>
   );
 }
